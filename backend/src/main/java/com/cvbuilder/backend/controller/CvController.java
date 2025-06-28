@@ -1,6 +1,6 @@
 package com.cvbuilder.backend.controller;
 
-import com.cvbuilder.backend.dto.PersonalInfo;
+import com.cvbuilder.backend.model.PersonalInfo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

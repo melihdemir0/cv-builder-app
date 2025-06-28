@@ -1,4 +1,4 @@
-package com.cvbuilder.backend.dto;
+package com.cvbuilder.backend.model;
 
 public class PersonalInfo {
     private String name;
