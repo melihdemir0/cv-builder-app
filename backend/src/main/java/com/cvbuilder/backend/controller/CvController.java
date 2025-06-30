@@ -12,6 +12,7 @@ public class CvController {
     @PostMapping("/personal-info")
     public ResponseEntity<String> savePersonalInfo(@RequestBody PersonalInfo info) {
         // Burada veriyi ekrana basıyoruz, sonra DB’ye kaydedeceğiz
+    	System.out.println("✅ Kişisel Bilgiler Alındı:");
         System.out.println("Ad: " + info.getName());
         System.out.println("Email: " + info.getEmail());
         System.out.println("Telefon: " + info.getPhone());
