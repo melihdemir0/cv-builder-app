@@ -1,6 +1,7 @@
 package com.cvbuilder.backend.controller;
 
 import com.cvbuilder.backend.model.User;
+import com.cvbuilder.backend.repository.UserRepository;
 import com.cvbuilder.backend.security.JwtTokenUtil;
 import com.cvbuilder.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class UserController {
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;
     private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userRepository;
 
     // Constructor Enjeksiyonu ile servislere bağımlılığı ekliyoruz
     @Autowired
@@ -28,10 +31,9 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @GetMapping("/{id}")  // ID ile kullanıcı getiren GET isteği
