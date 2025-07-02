@@ -4,31 +4,31 @@ import com.cvbuilder.backend.model.User;
 import com.cvbuilder.backend.repository.UserRepository;
 import com.cvbuilder.backend.security.JwtTokenUtil;
 import com.cvbuilder.backend.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")  // API URL'inin başı
+@RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;
     private final PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    // Constructor Enjeksiyonu ile servislere bağımlılığı ekliyoruz
-    @Autowired
-    public UserController(UserService userService, JwtTokenUtil jwtTokenUtil, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService, JwtTokenUtil jwtTokenUtil, PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.userService = userService;
         this.jwtTokenUtil = jwtTokenUtil;
         this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -36,46 +36,75 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/{id}")  // ID ile kullanıcı getiren GET isteği
+    @GetMapping("/{id}")
     public Optional<User> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
-    @PostMapping  // Yeni kullanıcı ekleyen POST isteği
+    @PostMapping
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
 
-    @DeleteMapping("/{id}")  // Kullanıcı silen DELETE isteği
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
 
-    // Register - Kullanıcı kaydı
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
-        // Şifreyi güvenli bir şekilde şifrele
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        // Kullanıcıyı oluştur
         userService.createUser(user);
-
         return ResponseEntity.ok("User registered successfully!");
     }
 
-    // Login - Kullanıcı giriş işlemi
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody User user) {
         String username = user.getUsername();
-
-        // UserService'den username ile kullanıcıyı arıyoruz
-        Optional<User> existingUser = userService.getUserByUsername(username);  // getUserByUsername() metodu kullanıcıyı username ile arar
+        Optional<User> existingUser = userService.getUserByUsername(username);
 
         if (existingUser.isPresent()) {
-            String token = jwtTokenUtil.generateToken(existingUser.get().getUsername());  // Kullanıcıyı doğrulayıp token oluşturuyoruz
+            String token = jwtTokenUtil.generateToken(existingUser.get().getUsername());
             return ResponseEntity.ok("Bearer " + token);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
+    }
+
+    // ✅ Kişisel bilgi + fotoğraf yükleme
+    @PostMapping("/personal-info")
+    public ResponseEntity<String> savePersonalInfo(
+            @RequestParam("fullName") String fullName,
+            @RequestParam("address") String address,
+            @RequestParam("phone") String phone,
+            @RequestParam("email") String email,
+            @RequestParam("birthDate") String birthDate,
+            @RequestParam(value = "photo", required = false) MultipartFile photoFile
+    ) {
+        try {
+            String filePath = null;
+
+            if (photoFile != null && !photoFile.isEmpty()) {
+                String uploadsDir = System.getProperty("user.dir") + "/uploads/";
+                File dir = new File(uploadsDir);
+                if (!dir.exists()) dir.mkdirs();
+
+                filePath = uploadsDir + photoFile.getOriginalFilename();
+                photoFile.transferTo(new File(filePath));
+            }
+
+            User user = new User();
+            user.setUsername(fullName);
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setPhotoPath(filePath);
+
+            userRepository.save(user);
+
+            return ResponseEntity.ok("Kişisel bilgiler başarıyla kaydedildi.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Hata oluştu.");
         }
     }
 }

@@ -8,6 +8,7 @@ import CvStep1 from './pages/CvStep1';
 import CvStep2 from './pages/CvStep2';
 import CvStep3 from './pages/CvStep3';
 import CvStep4 from './pages/CvStep4';
+import CvStep5 from './pages/CvStep5';
 
 function App() {
   return (
@@ -18,9 +19,10 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/create/step-1" element={<CvStep1 />} />
-        //<Route path="/create/step-2" element={<CvStep2 />} />
-        //<Route path="/create/step-3" element={<CvStep3 />} />
-        //<Route path="/create/step-4" element={<CvStep4 />} />
+        <Route path="/create/step-2" element={<CvStep2 />} />
+        <Route path="/create/step-3" element={<CvStep3 />} />
+        <Route path="/create/step-4" element={<CvStep4 />} />
+      //<Route path="/create/step-5" element={<CvStep5 />} />
         <Route path="/create" element={<Navigate to="/create/step-1" />} />
       </Routes>
     </BrowserRouter>
