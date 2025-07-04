@@ -22,7 +22,7 @@ public class User {
     private String password;
 
     private String photoPath;
-
+    private String jobTitle;
     private String phone;     
     private String address;   
     private String birthDate; 

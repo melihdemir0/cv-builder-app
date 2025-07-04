@@ -18,14 +18,6 @@ public class ExperienceController {
         this.experienceService = experienceService;
     }
 
-    @PostMapping
-    public ResponseEntity<Experience> save(@RequestBody Experience experience) {
-        System.out.println("✅ Deneyim Alındı:");
-        System.out.println("- Şirket: " + experience.getCompanyName());
-        System.out.println("- Pozisyon: " + experience.getPosition());
-        return ResponseEntity.ok(experienceService.saveExperience(experience));
-    }
-
     @GetMapping
     public List<Experience> getAll() {
         return experienceService.getAllExperiences();
