@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./StepNavigation.module.css";
 
-const steps = [1, 2, 3, 4, 5]; 
+const steps = [1, 2, 3, 4, 5, 6]; 
 
 export default function StepNavigation() {
   const location = useLocation();

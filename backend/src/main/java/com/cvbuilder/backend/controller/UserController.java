@@ -75,6 +75,7 @@ public class UserController {
     @PostMapping("/personal-info")
     public ResponseEntity<String> savePersonalInfo(
             @RequestParam("fullName") String fullName,
+            @RequestParam("jobTitle") String jobTitle,
             @RequestParam("address") String address,
             @RequestParam("phone") String phone,
             @RequestParam("email") String email,
