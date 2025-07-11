@@ -1,0 +1,46 @@
+.cv-container {
+  display: flex;
+  border: 1px solid #ddd;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: white;
+  color: #000;
+}
+
+.cv-left {
+  width: 35%;
+  padding: 15px;
+  background: #f9f9f9;
+}
+
+.cv-right {
+  width: 65%;
+  padding: 15px;
+}
+
+.profile-img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+h2.name {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+h3.title {
+  font-size: 18px;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+h4 {
+  border-bottom: 1px solid #000;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+}
