@@ -5,7 +5,7 @@ import StepNavigation from "../components/StepNavigation";
 import { useCvForm } from '../context/CvFormContext';
 
 export default function CvStep5() {
-  const { formData, setFormData } = useCvForm(); 
+  const { formData, setFormData } = useCvForm(); // ✅ düzeltme burada
   const [introText, setIntroText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

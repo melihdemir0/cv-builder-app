@@ -56,7 +56,7 @@ export default function LanguageForm() {
   return (
     <>
       <div className="max-w-3xl mx-auto mt-10 p-6 border rounded shadow bg-white">
-        <h2 className="text-2xl font-bold mb-6">Dil Bilgileri</h2>
+        <h2 className="text-2xl font-bold mb-6">Dil Tercihleri</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           {languages.map((lang, index) => (
             <div key={index} className="border p-4 rounded relative bg-gray-50">
