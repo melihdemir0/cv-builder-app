@@ -57,6 +57,7 @@ groq.api.key=your-api-key
 1.frontend/ klasörüne girin:
 
 cd frontend
+
 2.Gerekli paketleri yükleyin:
 
 npm install
@@ -73,6 +74,7 @@ Backend API: http://localhost:8080
 ## 👥 Katkı  
 Bu proje aşağıdaki geliştiricilerin işbirliğiyle hazırlanmıştır:
 
-- [Melih Demir](https://github.com/melihdemir0)  
+- [Melih Demir](https://github.com/melihdemir0)
+   
 - [İrem Dehri](https://github.com/iremdehri)
 
