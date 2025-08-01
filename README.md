@@ -48,9 +48,13 @@ cv-builder-app/
 ### Backend
 
 1. `backend/` klasörüne girin:
+   
 cd backend
+
 2.application.properties ya da .env dosyasına aşağıdaki satırı ekleyin:
+
 groq.api.key=your-api-key
+
 3.Uygulamayı çalıştırın.
 
 ### Frontend
