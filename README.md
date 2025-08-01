@@ -31,10 +31,15 @@ Bu proje, kullanıcıların adım adım CV (özgeçmiş) oluşturmalarını sağ
 ## 📁 Proje Yapısı
 
 cv-builder-app/
+
 ├── backend/
+
 │ └── src/main/java/com/cvbuilder/backend/
+
 ├── frontend/
+
 │ └── src/pages/
+
 └── README.md
 
 
@@ -50,10 +55,14 @@ groq.api.key=your-api-key
 
 ### Frontend
 1.frontend/ klasörüne girin:
+
 cd frontend
 2.Gerekli paketleri yükleyin:
+
 npm install
+
 3.Uygulamayı başlatın:
+
 npm run dev
 
 ### Giriş Adresleri
